@@ -15,13 +15,14 @@ fn main() {
             .expect("Failed to read line!");
 
         let choice : u32 = match choice.trim().parse() {
-            Ok(num) => num,
+            Ok(num) => match num {
+                1 => num,
+                2 => num,
+                _ => break,
+            },
             Err(_) => break,
         };
 
-        if choice != 1 && choice != 2 {
-            break;
-        }
         println!("Enter the temperature: ");
         
         io::stdin().read_line(&mut temperature)
@@ -30,10 +31,10 @@ fn main() {
         let temperature : f32 = temperature.trim().parse()
             .expect("You need to enter a number.");
 
-        if choice == 1 {
-            println!("\nThe temperature in Celsius is {}\n", fahrenheit_to_celsius(temperature));
-        } else if choice == 2 {
-            println!("The temperature in Celsius is {}\n", celsius_to_fahrenheit(temperature));
+        match choice {
+            1 => println!("\nThe temperature in Celsius is {}\n", fahrenheit_to_celsius(temperature)),
+            2 => println!("The temperature in Fahrenheit is {}\n", celsius_to_fahrenheit(temperature)),
+            _ => break,
         }
     }
     println!("Bye!");
